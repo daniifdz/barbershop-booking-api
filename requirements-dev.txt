@@ -1,4 +1,4 @@
 #lee la lista de paquetes de ese archivo
 -r requirements.txt
 pytest==9.2.0
-httpx==2.16.2
+httpx2==2.16.2
