@@ -16,6 +16,8 @@ from app.main import app
 def engine():
     url = os.environ.get("TEST_DATABASE_URL")
     if not url:
+        if os.environ.get("CI"):
+            pytest.fail("TEST_DATABASE_URL must be set in CI")
         pytest.skip("TEST_DATABASE_URL is not set")
 
     with pytest.MonkeyPatch.context() as mp:

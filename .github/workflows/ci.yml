@@ -27,3 +27,19 @@ jobs:
 
       - name: Run tests
         run: pytest
+        env:
+          TEST_DATABASE_URL: postgresql+psycopg://test:test@localhost:5432/barbershop_test
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: barbershop_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U test -d barbershop_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 5
