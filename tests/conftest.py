@@ -6,6 +6,11 @@ from alembic.config import Config
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
 
+from fastapi.testclient import TestClient
+
+from app.database import get_db
+from app.main import app
+
 
 @pytest.fixture(scope="session")
 def engine():
@@ -34,3 +39,13 @@ def db_session(engine):
                 "appointments RESTART IDENTITY CASCADE"
             )
         )
+        
+        
+@pytest.fixture
+def client(db_session):
+    def override_get_db():
+        yield db_session
+
+    app.dependency_overrides[get_db] = override_get_db
+    yield TestClient(app)
+    app.dependency_overrides.clear()
