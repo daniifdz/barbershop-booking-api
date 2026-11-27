@@ -9,6 +9,7 @@ COPY app ./app
 COPY alembic ./alembic
 COPY alembic.ini ./
 
+
 RUN useradd --create-home appuser
 USER appuser
 
