@@ -23,4 +23,4 @@ SQLAlchemy==2.1.9
 
 alembic==1.20.1
 
-pwdlub[argon2]==0.4.2
+pwdlib[argon2]==0.4.2
