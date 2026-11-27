@@ -4,15 +4,14 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-
+from app.routers import auth
 
 app = FastAPI()
-
+app.include_router(auth.router)
 
 @app.get("/health")
 def health():
     return {"status": "ok"}
-
 
 @app.get("/health/ready")
 def ready(db: Session = Depends(get_db)):
